@@ -1,0 +1,13 @@
+.top-buffer{
+    margin-top: 20px; 
+}
+
+body{
+    font-family: Muli,Helvetica,Arial,sans-serif;
+}
+
+.page-container{
+    min-height: 600px;
+    height: auto !important; /* This is a hack to make IE6 fix itself to a set height */
+    height: 600px; 
+}
