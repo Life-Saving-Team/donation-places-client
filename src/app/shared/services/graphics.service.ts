@@ -3,20 +3,29 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GraphicsService {
+    view
+    SimpleMarkerSymbol
+    Point
+    Graphic
 
-    setGraphicsFromData(view, SimpleMarkerSymbol, Point, Graphic, data) {
+    initialize({view,  SimpleMarkerSymbol,   Point,   Graphic}) {
+        this.view = view
+        this.SimpleMarkerSymbol = SimpleMarkerSymbol
+        this.Point = Point
+        this.Graphic = Graphic
+    }
 
-        const markerSymbol = new SimpleMarkerSymbol({
+    setGraphicsFromData(data) {
+        const markerSymbol = new this.SimpleMarkerSymbol({
             color: [107, 0, 232],
             outline: { // autocasts as new SimpleLineSymbol()
                 color: [255, 255, 255],
                 width: 2
             }
         });
-
         const newGraphics = data.map((place, index) => {
-            return new Graphic({
-                geometry: new Point({
+            return new this.Graphic({
+                geometry: new this.Point({
                     longitude: place.location.coordinates[0],
                     latitude: place.location.coordinates[1]
                 }),
@@ -51,8 +60,8 @@ export class GraphicsService {
                 }
             });
         })
-        view.graphics.removeAll()
-        view.graphics.addMany(newGraphics)
+        this.view.graphics.removeAll()
+        this.view.graphics.addMany(newGraphics)
     }
 
 
@@ -72,8 +81,6 @@ export class GraphicsService {
         });
 
         view.popup.content = '[' + lon + ', ' + lat + ']'
-
-
     }
 
 

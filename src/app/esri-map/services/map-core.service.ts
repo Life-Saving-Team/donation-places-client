@@ -8,8 +8,10 @@ import { MapCoreEventsHandler } from './event-handlers/map-core-events-handler';
 
 @Injectable()
 export class MapCoreService {
-    constructor(private dataService: DataService, private graphicsService: GraphicsService,
-        private mapCoreEventsHandler: MapCoreEventsHandler) { }
+    constructor(
+         private graphicsService: GraphicsService,
+        private mapCoreEventsHandler: MapCoreEventsHandler
+    ) { }
 
 
     loadMap(mapDomElement, loadedModules) {
@@ -22,14 +24,13 @@ export class MapCoreService {
             zoom: 10,
         });
 
-        // this.dataService.getNearByLocations().subscribe(
-        //     data => this.graphicsService.setGraphicsFromData(view, SimpleMarkerSymbol, Point, Graphic, data),
-        //     error => console.log('Problem with socket connector')
-        // )
+        this.graphicsService.initialize({Point, Graphic, SimpleMarkerSymbol, view})
 
         addUIWidgets(view, Track, Search)
         this.mapCoreEventsHandler.assignMapEventHandlers(view, Locator)
     }
+
+
 
 
 

@@ -18,8 +18,8 @@ export class DataService {
     private requestOptions = new RequestOptions({ headers: this.requestHeaders });
     private locationsEndPoint
     constructor(private http: Http) {
-        if (environment.production) this.locationsEndPoint = '/locations'
-        else this.locationsEndPoint = 'http://localhost:3000/locations'
+        if (environment.production) this.locationsEndPoint = '/donation-places'
+        else this.locationsEndPoint = 'http://localhost:3000/donation-places'
         this.nearbyLocationsSubscription = new Subject()
     }
 
@@ -76,11 +76,7 @@ export class DataService {
     getNearByLocations(longitude, latitude) {
         return this.http.get(`${this.locationsEndPoint}?longitude=${longitude}&latitude=${latitude}`)
             .map(res => {
-
-                const item = res.json()
-                item.longitude = item.location.coordinates[0]
-                item.latitude = item.location.coordinates[1]
-                return item
+                return res.json()
             })
             .catch(this.handleError);
     }
