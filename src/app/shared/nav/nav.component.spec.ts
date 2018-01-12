@@ -22,8 +22,8 @@ describe('Success Component', () => {
             imports: [RouterTestingModule, SharedModule],
             declarations: [],
             providers: [
-                {provide: DataService, useValue: {}},
-            
+                { provide: DataService, useValue: {} },
+
             ],
         });
         fixture = TestBed.createComponent(NavComponent);
@@ -37,29 +37,7 @@ describe('Success Component', () => {
         expect(comp).toBeTruthy()
     })
 
-    it("should get connection Socket status", () => {
-        dataService.isConnected = () => true
-        expect(comp.isConnected()).toBe(true)
-        dataService.isConnected = () => false
-        expect(comp.isConnected()).toBe(false)
-    })
 
-
-    // describe('Html component color', ()=>{
-    //     it("should be green when connected", () => {
-    //         dataService.isConnected = () => true
-    //         fixture.detectChanges()
-    //         expect(el.querySelector('#connectionStatus').classList.contains('btn-success')).toBeTruthy()
-    //         expect(el.querySelector('#connectionStatus').classList.contains('btn-danger')).toBeFalsy()
-    //     })
-
-    //     it("should be red when disconnected", () => {
-    //         dataService.isConnected = () => false
-    //         fixture.detectChanges()
-    //         expect(el.querySelector('#connectionStatus').classList.contains('btn-danger')).toBeTruthy()
-    //         expect(el.querySelector('#connectionStatus').classList.contains('btn-success')).toBeFalsy()
-    //     })
-    // })
 
 
 

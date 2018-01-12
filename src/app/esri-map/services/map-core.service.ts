@@ -22,10 +22,10 @@ export class MapCoreService {
             zoom: 10,
         });
 
-        this.dataService.nearbyDonorsSubscription.subscribe(
-            data => this.graphicsService.setGraphicsFromData(view, SimpleMarkerSymbol, Point, Graphic, data),
-            error => console.log('Problem with socket connector')
-        )
+        // this.dataService.getNearByLocations().subscribe(
+        //     data => this.graphicsService.setGraphicsFromData(view, SimpleMarkerSymbol, Point, Graphic, data),
+        //     error => console.log('Problem with socket connector')
+        // )
 
         addUIWidgets(view, Track, Search)
         this.mapCoreEventsHandler.assignMapEventHandlers(view, Locator)

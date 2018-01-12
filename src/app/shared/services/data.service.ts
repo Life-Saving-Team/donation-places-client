@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import * as io from 'socket.io-client';
 import { SnackBarService } from './snackbar.service';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable'
@@ -12,65 +11,50 @@ import 'rxjs/add/observable/throw'
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class DataService {
-    private socket: SocketIOClient.Socket;
-    private nearbyDonorsStore: any[]
-    nearbyDonorsSubscription: Subject<any>
+    private nearbylocationsStore: any[]
+    nearbyLocationsSubscription: Subject<any>
 
     private requestHeaders = new Headers({ 'Content-Type': 'application/json' });
     private requestOptions = new RequestOptions({ headers: this.requestHeaders });
-    private donorsEndPoint
+    private locationsEndPoint
     constructor(private http: Http) {
-        if (environment.production) this.donorsEndPoint = '/donors'
-        else this.donorsEndPoint = 'http://localhost:3000/donors'
-        this.nearbyDonorsSubscription = new Subject()
+        if (environment.production) this.locationsEndPoint = '/locations'
+        else this.locationsEndPoint = 'http://localhost:3000/locations'
+        this.nearbyLocationsSubscription = new Subject()
     }
 
-    instantiateSocket() {
-        if (environment.production) this.socket = io()
-        else this.socket = io('http://localhost:3000');
 
-        this.socket.on('new data', payload => {
-            this.nearbyDonorsStore = payload
-            this.nearbyDonorsSubscription.next(this.nearbyDonorsStore)
-        })
-
-        this.socket.on('updated', payload => {
-            this.getNearbyDonors()
-        })
-    }
-
-    getNearbyDonors(longitude?, latitude?) {
-        this.socket.emit('needs data', {longitude, latitude})
-    }
-  
-    
-    isConnected(){
-        return this.socket.connected
+    getNearbylocations(longitude?, latitude?) {
+        return this.http.get(`${this.locationsEndPoint}?latitude=${latitude}&longitude=${longitude}`)
+            .map(res => {
+                return 'OK'
+            })
+            .catch(this.handleError);
     }
 
 
     deleteDonor(id) {
-        return this.http.delete(`${this.donorsEndPoint}/${id}`)
+        return this.http.delete(`${this.locationsEndPoint}/${id}`)
             .map(res => {
-                 return 'OK'
+                return 'OK'
             })
             .catch(this.handleError);
     }
 
 
     updateDonor(id, data) {
-        data._id = id       
-        return this.http.put(`${this.donorsEndPoint}`, data, this.requestOptions)
-            .map(res => {                
+        data._id = id
+        return this.http.put(`${this.locationsEndPoint}`, data, this.requestOptions)
+            .map(res => {
                 return res.json()
             })
             .catch(this.handleError);
     }
 
-   
+
 
     addDonor(item) {
-        return this.http.post(`${this.donorsEndPoint}`, item, this.requestOptions)
+        return this.http.post(`${this.locationsEndPoint}`, item, this.requestOptions)
             .map(res => {
                 return res.json()
             })
@@ -78,10 +62,22 @@ export class DataService {
     }
 
     getDonorInfo(id) {
-        return this.http.get(`${this.donorsEndPoint}/${id}`)
+        return this.http.get(`${this.locationsEndPoint}/${id}`)
             .map(res => {
 
-                const item= res.json()
+                const item = res.json()
+                item.longitude = item.location.coordinates[0]
+                item.latitude = item.location.coordinates[1]
+                return item
+            })
+            .catch(this.handleError);
+    }
+
+    getNearByLocations(longitude, latitude) {
+        return this.http.get(`${this.locationsEndPoint}?longitude=${longitude}&latitude=${latitude}`)
+            .map(res => {
+
+                const item = res.json()
                 item.longitude = item.location.coordinates[0]
                 item.latitude = item.location.coordinates[1]
                 return item
@@ -92,7 +88,7 @@ export class DataService {
 
     private handleError(error: Response | any) {
         console.log(error);
-        
+
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
@@ -105,7 +101,7 @@ export class DataService {
         return Observable.throw(errMsg);
     }
 
-    
+
 
 }
 

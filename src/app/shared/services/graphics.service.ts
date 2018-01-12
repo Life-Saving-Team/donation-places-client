@@ -4,11 +4,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GraphicsService {
 
-
     setGraphicsFromData(view, SimpleMarkerSymbol, Point, Graphic, data) {
 
-
-        var markerSymbol = new SimpleMarkerSymbol({
+        const markerSymbol = new SimpleMarkerSymbol({
             color: [107, 0, 232],
             outline: { // autocasts as new SimpleLineSymbol()
                 color: [255, 255, 255],
@@ -16,38 +14,38 @@ export class GraphicsService {
             }
         });
 
-        const newGraphics = data.map((person, index) => {
+        const newGraphics = data.map((place, index) => {
             return new Graphic({
                 geometry: new Point({
-                    longitude: person.location.coordinates[0],
-                    latitude: person.location.coordinates[1]
+                    longitude: place.location.coordinates[0],
+                    latitude: place.location.coordinates[1]
                 }),
                 symbol: markerSymbol,
                 attributes: {
-                    "First Name": person.firstName,
-                    "Last Name": person.lastName,
-                    "Blood Group": person.bloodGroup,
-                    "Phone Number": `<a id="telephone-${index}" data="${person.telephone}"  > Hidden </a> `,
-                    "Email": `<a id="email-${index}" data="${person.email}" > Hidden </a> `,
+                    'Name': place.name,
+                    'Address': place.address,
+                    'Category': place.category,
+                    'Governerate': place.governerate,
+                    'isPrivate': place.isPrivate,
                 },
                 popupTemplate: {
                     actions: [{
-                        title: "Show phone and email",
-                        id: "show-hidden",
+                        title: 'Show phone and email',
+                        id: 'show-hidden',
                     }],
-                    title: "{firstName} {lastName}",
+                    title: '{firstName} {lastName}',
                     content: [{
-                        type: "fields",
+                        type: 'fields',
                         fieldInfos: [{
-                            fieldName: "First Name"
+                            fieldName: 'Name'
                         }, {
-                            fieldName: "Last Name"
+                            fieldName: 'Address'
                         }, {
-                            fieldName: "Blood Group"
+                            fieldName: 'Category'
                         }, {
-                            fieldName: "Phone Number"
+                            fieldName: 'Governerate'
                         }, {
-                            fieldName: "Email"
+                            fieldName: 'isPrivate'
                         }]
                     }]
                 }
@@ -63,19 +61,19 @@ export class GraphicsService {
         const lat = Math.round(mapPoint.latitude * 1000) / 1000;
         const lon = Math.round(mapPoint.longitude * 1000) / 1000;
         view.popup.actions = [{
-            title: "Confirm Location",
-            id: "show-add-modal",
-            className: "text-danger"
+            title: 'Confirm Location',
+            id: 'show-add-modal',
+            className: 'text-danger'
         }]
         view.popup.open({
             // Set the popup's title to the coordinates of the location
-            title: address? address : "No address was found for this location" ,
+            title: address ? address : 'No address was found for this location',
             location: mapPoint // Set the location of the popup to the clicked location
         });
-        
-         view.popup.content = "[" + lon + ", " + lat + "]"
-        
-        
+
+        view.popup.content = '[' + lon + ', ' + lat + ']'
+
+
     }
 
 
