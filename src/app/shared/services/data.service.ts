@@ -11,21 +11,19 @@ import 'rxjs/add/observable/throw'
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class DataService {
-    private nearbylocationsStore: any[]
-    nearbyLocationsSubscription: Subject<any>
+    private nearbyPlacesStore: any[]
 
     private requestHeaders = new Headers({ 'Content-Type': 'application/json' });
     private requestOptions = new RequestOptions({ headers: this.requestHeaders });
-    private locationsEndPoint
+    private placesEndPoint
     constructor(private http: Http) {
-        if (environment.production) this.locationsEndPoint = '/donation-places'
-        else this.locationsEndPoint = 'http://localhost:3000/donation-places'
-        this.nearbyLocationsSubscription = new Subject()
+        if (environment.production) this.placesEndPoint = '/donation-places'
+        else this.placesEndPoint = 'http://localhost:3000/donation-places'
     }
 
 
-    getNearbylocations(longitude?, latitude?) {
-        return this.http.get(`${this.locationsEndPoint}?latitude=${latitude}&longitude=${longitude}`)
+    getNearbyPlaces(longitude?, latitude?) {
+        return this.http.get(`${this.placesEndPoint}?latitude=${latitude}&longitude=${longitude}`)
             .map(res => {
                 return 'OK'
             })
@@ -33,8 +31,8 @@ export class DataService {
     }
 
 
-    deleteDonor(id) {
-        return this.http.delete(`${this.locationsEndPoint}/${id}`)
+    deletePlace(id) {
+        return this.http.delete(`${this.placesEndPoint}/${id}`)
             .map(res => {
                 return 'OK'
             })
@@ -42,9 +40,8 @@ export class DataService {
     }
 
 
-    updateDonor(id, data) {
-        data._id = id
-        return this.http.put(`${this.locationsEndPoint}`, data, this.requestOptions)
+    updatePlace(id, data) {
+        return this.http.put(`${this.placesEndPoint}/${id}`, data, this.requestOptions)
             .map(res => {
                 return res.json()
             })
@@ -53,30 +50,21 @@ export class DataService {
 
 
 
-    addDonor(item) {
-        return this.http.post(`${this.locationsEndPoint}`, item, this.requestOptions)
+    addPlace(item) {
+        return this.http.post(`${this.placesEndPoint}`, item, this.requestOptions)
             .map(res => {
                 return res.json()
             })
             .catch(this.handleError);
     }
 
-    getDonorInfo(id) {
-        return this.http.get(`${this.locationsEndPoint}/${id}`)
+    getPlaceInfo(id) {
+        return this.http.get(`${this.placesEndPoint}/${id}`)
             .map(res => {
-
                 const item = res.json()
                 item.longitude = item.location.coordinates[0]
                 item.latitude = item.location.coordinates[1]
                 return item
-            })
-            .catch(this.handleError);
-    }
-
-    getNearByLocations(longitude, latitude) {
-        return this.http.get(`${this.locationsEndPoint}?longitude=${longitude}&latitude=${latitude}`)
-            .map(res => {
-                return res.json()
             })
             .catch(this.handleError);
     }

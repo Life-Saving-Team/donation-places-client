@@ -15,9 +15,9 @@ describe('EsriMapComponent', () => {
     let de: DebugElement;
     let el: HTMLElement;
     let sb
-    let userService
+    let savedPlace
   
-    let userServiceStub = {
+    let savedPlaceStub = {
         saveLocation(long, lat, address){
 
         },

@@ -24,7 +24,7 @@ export class MapCoreEventsHandler {
         view.on('mouse-wheel', (x) => obs.next(1))
         view.on('hold', (x) => obs.next(1))
 
-        obs.throttleTime(500).flatMap(() => this.dataService.getNearByLocations(view.center.longitude, view.center.latitude)).subscribe(
+        obs.throttleTime(500).flatMap(() => this.dataService.getNearbyPlaces(view.center.longitude, view.center.latitude)).subscribe(
             data => this.graphicsService.setGraphicsFromData(data)
         )
 

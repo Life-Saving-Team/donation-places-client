@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessModule } from './success.module';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
+import { SavedPlace } from '../shared/services/user.service';
 
 
 describe('Success Component', () => {
@@ -17,11 +17,11 @@ describe('Success Component', () => {
     let fixture: ComponentFixture<SuccessComponent>;
     let de: DebugElement;
     let el: HTMLElement;
-    let userService
+    let savedPlace
     let ActivatedRouteStub = {
         params: Observable.of('45456')
     }
-    let userServiceStub = {
+    let savedPlaceStub = {
         userId:123
     }
     beforeEach(() => {
@@ -30,14 +30,14 @@ describe('Success Component', () => {
             declarations: [],
             providers: [
                 {provide: ActivatedRoute, useValue: ActivatedRouteStub},
-                {provide: UserService, useValue: userServiceStub} ,
+                {provide: SavedPlace, useValue: savedPlaceStub} ,
             
             ],
         });
         fixture = TestBed.createComponent(SuccessComponent);
         comp = fixture.componentInstance;
 
-        userService = fixture.debugElement.injector.get(UserService);
+        savedPlace = fixture.debugElement.injector.get(SavedPlace);
         // sb = fixture.debugElement.injector.get(SnackBarConfig);
     });
 
@@ -52,7 +52,7 @@ describe('Success Component', () => {
     })
 
     it("should navigate if id is not available", () => {
-        userService.userId = null
+        savedPlace.placeId = null
         comp.ngOnInit()
         expect(comp.id).toBeFalsy()
     })

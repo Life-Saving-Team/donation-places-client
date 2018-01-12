@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../../shared/services/user.service';
+import { SavedPlace } from '../../../shared/services/user.service';
 import { GraphicsService } from '../../../shared/services/graphics.service';
 import { locatorUrl } from '../../esri.config';
 
 @Injectable()
 export class MapDoubleClickHandler {
-    constructor(private router: Router, private userService: UserService, private graphicsService: GraphicsService) { }
+    constructor(private router: Router, private savedPlace: SavedPlace, private graphicsService: GraphicsService) { }
 
     implement(view, Locator) {
         const self = this;
@@ -40,7 +40,7 @@ export class MapDoubleClickHandler {
     }
 
     private saveLocation(longitude, latitude, address) {
-        this.userService.saveLocation(longitude, latitude, address);
+        this.savedPlace.saveLocation(longitude, latitude, address);
     }
 
 

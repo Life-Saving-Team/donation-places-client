@@ -1,4 +1,4 @@
-import { UserService } from '../shared/services/user.service';
+import { SavedPlace } from '../shared/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
 export class SuccessComponent {
     id: string
     url= window.location.origin
-    constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
+    constructor(private route: ActivatedRoute, private savedPlace: SavedPlace, private router: Router) {
     }
     ngOnInit(){
-        this.id= this.userService.userId
+        this.id= this.savedPlace.placeId
         if(!this.id) this.router.navigate(['/map'])
         
     }

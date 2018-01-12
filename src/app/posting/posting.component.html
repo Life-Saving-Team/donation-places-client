@@ -6,51 +6,51 @@
 
             <form (ngSubmit)="onSubmit(form.value)" [formGroup]="form" *ngIf="form">
                 <div class="form-group">
-                    <label for="">First name </label>
-                    <input type="text" class="form-control" id="" placeholder="Enter your first name" formControlName="firstName">
+                    <label for=""> Name </label>
+                    <input type="text" class="form-control" id="" placeholder="Enter place name" formControlName="name">
                 </div>
                 <div class="form-group">
-                    <label for="">Last name </label>
-                    <input type="text" class="form-control" id="" placeholder="Enter your last name" formControlName="lastName">
+                    <label for=""> Address </label>
+                    <input type="text" class="form-control" id="" placeholder="Enter place address" formControlName="address">
                 </div>
+
                 <div class="form-group">
-                    <label for="">Email Address </label>
-                    <input type="email" class="form-control" id="" placeholder="Enter email address" formControlName="email">
-                    <p [hidden]="!isIncorrectMailFormat('email')" class="text-danger"> Please Enter a valid email </p>
+                    <label for=""> Category </label>
+                    <select class="form-control bg-white xs-inline loadServices" formControlName="category">
+                        <option *ngFor="let item of categories" value="{{item}}">{{item}}</option>
+                    </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="">Phone Number </label>
-                    <input type="text" class="form-control" id="" placeholder="Enter phone number" formControlName="telephone" required>
-                    <p [hidden]="!isIncorrectTelephoneFormat('telephone')" class="text-danger"> Please Enter a valid phone number</p>
+                    <label for=""> Governerate </label>
+                    <select class="form-control bg-white xs-inline loadServices" formControlName="governerate">
+                        <option *ngFor="let item of governerates" value="{{item}}">{{item}}</option>
+                    </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="">Blood Group </label>
-                    <select class="form-control bg-white xs-inline loadServices" formControlName="bloodGroup">
-                                        <option *ngFor="let item of bloodGroups" value="{{item}}">{{item}}</option>
-                                </select>
+                    <label for="">Private</label>
+                    <input type="checkbox" class="form-control" id=""  formControlName="isPrivate">
                 </div>
+
+         
+                
                 <div class="form-group">
                     <label for="">Longitude </label>
                     <input type="text" class="form-control" id="" formControlName="longitude">
                     <p [hidden]="!isIncorrectLongitudeFormat('longitude')" class="text-danger"> Please Enter a valid longitude </p>
-                    
+
                 </div>
                 <div class="form-group">
                     <label for="">Latitude </label>
                     <input type="text" class="form-control" id="" formControlName="latitude">
                     <p [hidden]="!isIncorrectLatitudeFormat('latitude')" class="text-danger"> Please Enter a valid latitude </p>
-                    
-                </div>
-                <div class="form-group">
-                    <label for="">Address </label>
-                    <input type="text" class="form-control" id="" formControlName="address" >
-                </div>
 
-
+                </div>
 
                 <button type="submit" class="btn btn-success" [disabled]="!form.valid"> Submit</button>
                 <div class="btn btn-info" (click)="onChangeLocationRequest()">Get Back to Map</div>
-                <div class="btn btn-danger" *ngIf="userService.userId" (click)="onRemove()">Remove My Posting</div>
+                <div class="btn btn-danger" *ngIf="savedPlace.placeId" (click)="onRemove()">Remove My Posting</div>
 
             </form>
             <hr />

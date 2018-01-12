@@ -1,6 +1,8 @@
+import { categories } from '../config/categories';
+import { governerates } from '../config/governerates';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../shared/services/data.service';
-import { UserService } from '../shared/services/user.service';
+import { SavedPlace } from '../shared/services/user.service';
 import { Component, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { globalValidators } from '../shared/global-validators';
@@ -13,66 +15,66 @@ import { SnackBarService } from '../shared/services/snackbar.service';
 export class PostingComponent {
     isEdit: boolean
     form: FormGroup
-    bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']
-
+    categories = categories
+    governerates = governerates
     constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute,
-        private dataService: DataService, private router: Router, private userService: UserService,
-        private sb: SnackBarService) { 
-            this.grabIdAndGetInfo()
-        }
+        private dataService: DataService, private router: Router, private savedPlace: SavedPlace,
+        private sb: SnackBarService) {
+        this.grabIdAndGetInfo()
+    }
 
-    grabIdAndGetInfo(){
-        if(this.activatedRoute.snapshot.url[0]){
-            this.isEdit =true
+    grabIdAndGetInfo() {
+        if (this.activatedRoute.snapshot.url[0]) {
+
+            this.isEdit = true
             this.getDonorInfo(this.activatedRoute.snapshot.url[0].path)
-        }
-        else if(this.userService.userId){
-            this.isEdit =true
+        } else if (this.savedPlace.placeId) {
+            this.isEdit = true
             this.buildForm()
         } else {
-            this.isEdit =false
+            this.isEdit = false
             this.buildForm()
         }
-        
-        
-    
+
+
+
     }
-  
+
     private getDonorInfo(id) {
-        this.dataService.getDonorInfo(id).subscribe(
+        this.dataService.getPlaceInfo(id).subscribe(
             data => {
-                this.userService.userId = id
-                this.userService.userData = data
+                this.savedPlace.placeId = id
+                this.savedPlace.placeData = data
                 this.buildForm()
             },
             error => {
-                this.sb.emitErrorSnackBar("This account is currently non-existant")
+                this.sb.emitErrorSnackBar('This account is currently non-existant')
                 this.router.navigate(['/map'])
             }
         )
     }
 
-    onRemove(){
-        return this.dataService.deleteDonor(this.userService.userId).subscribe(
+    onRemove() {
+        return this.dataService.deletePlace(this.savedPlace.placeId).subscribe(
             data => {
-                this.userService.clearData()
+                this.savedPlace.clearData()
                 this.form.reset()
-                this.sb.emitSuccessSnackBar("You have successfully deleted your info")
+                this.sb.emitSuccessSnackBar('You have successfully deleted your info')
                 this.router.navigate(['/map'])
             },
             error => console.log(error)
         )
     }
     onSubmit(formData) {
-        if (this.userService.userId) return this.dataService.updateDonor(this.userService.userId, formData).subscribe(
+        if (this.savedPlace.placeId) return this.dataService.updatePlace(this.savedPlace.placeId, formData).subscribe(
             success => {
                 this.router.navigate(['/success'])
             },
             error => console.log(error)
         )
-        else return this.dataService.addDonor(formData).subscribe(
+        else return this.dataService.addPlace(formData).subscribe(
             data => {
-                this.userService.userId = data._id
+                this.savedPlace.placeId = data._id
                 this.router.navigate(['/success'])
             },
             error => console.log(error)
@@ -87,32 +89,29 @@ export class PostingComponent {
 
     buildForm() {
 
-        if (this.userService.userData){
+        if (this.savedPlace.placeData) {
             this.form = this.fb.group({
-                firstName: [this.userService.userData.firstName || '', Validators.required],
-                lastName: [this.userService.userData.lastName || '', Validators.required],
-                email: [this.userService.userData.email || '', globalValidators.mailFormat],
-                telephone: [this.userService.userData.telephone || '', globalValidators.telephoneFormat],
-                bloodGroup: [this.userService.userData.bloodGroup || '', Validators.required],
-                longitude: [this.userService.userData.longitude || '', globalValidators.longitudeFormat],
-                latitude: [this.userService.userData.latitude || '', globalValidators.latitudeFormat],
-                address: [this.userService.userData.address || '',Validators.required],
+                name: [this.savedPlace.placeData.name || '', Validators.required],
+                address: [this.savedPlace.placeData.address || '', Validators.required],
+                category: [this.savedPlace.placeData.email || '', globalValidators.mailFormat],
+                governerate: [this.savedPlace.placeData.telephone || '', globalValidators.telephoneFormat],
+                isPrivate: [this.savedPlace.placeData.bloodGroup || false, Validators.required],
+                longitude: [this.savedPlace.placeData.longitude || '', globalValidators.longitudeFormat],
+                latitude: [this.savedPlace.placeData.latitude || '', globalValidators.latitudeFormat],
             })
-        }
-        else {  
+        }  else {
             this.form = this.fb.group({
-                firstName: [  '', Validators.required],
-                lastName: [ '', Validators.required],
-                email: ['', globalValidators.mailFormat],
-                telephone: [  '', globalValidators.telephoneFormat],
-                bloodGroup: ['', Validators.required],
-                longitude: [  '', globalValidators.longitudeFormat],
-                latitude: [ '', globalValidators.latitudeFormat],
-                address: ['',Validators.required],
+                name: ['', Validators.required],
+                address: ['', Validators.required],
+                category: ['', globalValidators.mailFormat],
+                governerate: ['', globalValidators.telephoneFormat],
+                isPrivate: [false, Validators.required],
+                longitude: ['', globalValidators.longitudeFormat],
+                latitude: ['', globalValidators.latitudeFormat],
             })
 
         }
-        
+
     }
 
 

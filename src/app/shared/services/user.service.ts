@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class UserService {
-    userData
-    userId
+export class SavedPlace {
+    placeData
+    placeId
+
     constructor() {
     }
 
     saveLocation(longitude, latitude, address) {
-        if (!this.userData) {
-            this.userData = {}
+        if (!this.placeData) {
+            this.placeData = {}
         }
-        this.userData.longitude = longitude
-        this.userData.latitude = latitude
-        this.userData.address = address
+        this.placeData.longitude = longitude
+        this.placeData.latitude = latitude
+        this.placeData.address = address
 
     }
 
 
-    clearData(){
-        this.userData = null
-        this.userId=null
+    clearData() {
+        this.placeData = null
+        this.placeId = null
     }
 
 }

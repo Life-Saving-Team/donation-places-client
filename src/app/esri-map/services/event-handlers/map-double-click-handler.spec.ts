@@ -2,12 +2,12 @@ import { async, getTestBed, TestBed } from '@angular/core/testing';
 import { MapDoubleClickHandler } from './map-double-click-handler';
 import { MapCoreEventsHandler } from './map-core-events-handler';
 import { RouterTestingModule } from '@angular/router/testing';
-import { UserService } from '../../../shared/services/user.service';
+import { SavedPlace } from '../../../shared/services/user.service';
 import { GraphicsService } from '../../../shared/services/graphics.service';
 
 describe('Map Double Click Handler', () => {
     let _service: MapDoubleClickHandler
-    const userServiceStub = {
+    const savedPlaceStub = {
         saveLocation(longitude, latitude, address) {
 
         }
@@ -40,7 +40,7 @@ describe('Map Double Click Handler', () => {
             ],
             providers: [
                 MapCoreEventsHandler,
-                { provide: UserService, useValue: userServiceStub },
+                { provide: SavedPlace, useValue: savedPlaceStub },
                 { provide: GraphicsService, useValue: graphicsServiceStub },
                 MapDoubleClickHandler
             ]

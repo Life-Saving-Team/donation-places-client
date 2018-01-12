@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SnackBarService } from './shared/services/snackbar.service';
 import { DataService } from './shared/services/data.service';
-import { UserService } from './shared/services/user.service';
+import { SavedPlace } from './shared/services/user.service';
 import { GraphicsService } from './shared/services/graphics.service';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { GraphicsService } from './shared/services/graphics.service';
     AppRoutingModule,
     
   ],
-  providers: [UserService, GraphicsService, DataService, SnackBarService],
+  providers: [SavedPlace, GraphicsService, DataService, SnackBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
