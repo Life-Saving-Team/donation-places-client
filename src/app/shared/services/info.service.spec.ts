@@ -1,4 +1,4 @@
-import { SavedPlace } from './user.service';
+import { SavedPlace } from './saved-place.service';
 import { async, getTestBed, TestBed } from '@angular/core/testing';
 
 describe('Service: User Service', () => {

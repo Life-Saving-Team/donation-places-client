@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { GraphicsService } from '../../shared/services/graphics.service';
-import { SavedPlace } from '../../shared/services/user.service';
 import { addUIWidgets } from './map-ui-widgets';
 import { center } from '../esri.config';
 import { MapCoreEventsHandler } from './event-handlers/map-core-events-handler';

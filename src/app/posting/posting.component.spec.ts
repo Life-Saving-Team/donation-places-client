@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostingModule } from './posting.module';
 import { ActivatedRoute } from '@angular/router';
-import { SavedPlace } from '../shared/services/user.service';
+import { SavedPlace } from '../shared/services/saved-place.service';
 import { DataService } from '../shared/services/data.service';
 import 'rxjs/add/observable/of'
 import 'rxjs/add/observable/throw'

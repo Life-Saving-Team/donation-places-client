@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessModule } from './success.module';
 import { ActivatedRoute } from '@angular/router';
-import { SavedPlace } from '../shared/services/user.service';
+import { SavedPlace } from '../shared/services/saved-place.service';
 
 
 describe('Success Component', () => {

@@ -69,21 +69,28 @@ export class DataService {
             .catch(this.handleError);
     }
 
-
     private handleError(error: Response | any) {
         console.log(error);
-
-        let errMsg: string;
+        let message: string;
+        let statusCode: number;
         if (error instanceof Response) {
             const body = error.json() || '';
             const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+            statusCode = error.status
+            message = err;
         } else {
-            errMsg = error.message ? error.message : error.toString();
+            message = error.message ? error.message : error.toString();
         }
-        console.error(errMsg);
-        return Observable.throw(errMsg);
+        // if (error.status === 403 || error.status === 401) {
+        //     this.sb.emitErrorSnackBar(error)
+        //     this.router.navigate(['login'])
+        // }
+        return Observable.throw(message);
     }
+
+
+
+
 
 
 

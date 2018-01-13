@@ -1,0 +1,48 @@
+<form (ngSubmit)="onSubmit(form.value)" [formGroup]="form" *ngIf="form">
+    <div class="form-group">
+        <label for=""> Name </label>
+        <input type="text" class="form-control" id="" placeholder="Enter place name" formControlName="name">
+    </div>
+    <div class="form-group">
+        <label for=""> Address </label>
+        <input type="text" class="form-control" id="" placeholder="Enter place address" formControlName="address">
+    </div>
+
+    <div class="form-group">
+        <label for=""> Category </label>
+        <select class="form-control bg-white xs-inline loadServices" formControlName="category">
+            <option *ngFor="let item of categories" value="{{item}}">{{item}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for=""> Governerate </label>
+        <select class="form-control bg-white xs-inline loadServices" formControlName="governerate">
+            <option *ngFor="let item of governerates" value="{{item}}">{{item}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="">Private</label>
+        <input type="checkbox" class="form-control" id="" formControlName="isPrivate">
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="">Longitude </label>
+        <input type="text" class="form-control" id="" formControlName="longitude">
+        <p [hidden]="!isIncorrectLongitudeFormat('longitude')" class="text-danger"> Please Enter a valid longitude </p>
+
+    </div>
+    <div class="form-group">
+        <label for="">Latitude </label>
+        <input type="text" class="form-control" id="" formControlName="latitude">
+        <p [hidden]="!isIncorrectLatitudeFormat('latitude')" class="text-danger"> Please Enter a valid latitude </p>
+
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid"> Submit</button>
+    <div class="btn btn-info" (click)="onChangeLocationRequest()">Get Back to Map</div>
+    
+</form>
