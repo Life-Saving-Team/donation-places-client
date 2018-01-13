@@ -7,6 +7,7 @@ import { NavComponent } from './nav/nav.component';
 import { SnackBarService } from './services/snackbar.service';
 import { FooterComponent } from './footer/footer.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -14,7 +15,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     CommonModule,

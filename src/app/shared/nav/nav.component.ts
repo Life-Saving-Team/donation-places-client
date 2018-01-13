@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,7 +7,14 @@ import { Component } from '@angular/core';
 })
 export class NavComponent {
 
+    constructor(
+        private router: Router
+    ) {}
     logout() {
         console.log('Fake Logging out');
+    }
+
+    onPlacesClick() {
+        this.router.navigate(['/places'])
     }
 }

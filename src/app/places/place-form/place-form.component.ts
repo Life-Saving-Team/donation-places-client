@@ -1,6 +1,6 @@
 import { globalValidators } from '../../shared/global-validators';
 import { FormGroup, Validators } from '@angular/forms';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SavedPlaceService } from '../../shared/services/saved-place.service';
 import { categories } from '../../config/categories';
 import { cities } from '../../config/cities';
@@ -16,7 +16,7 @@ export class PlaceFormComponent implements OnInit {
     form: FormGroup
     categories = categories
     cities = cities
-    placeToEdit
+    @Input() placeToEdit
     @Output() submitted = new EventEmitter
 
     constructor(

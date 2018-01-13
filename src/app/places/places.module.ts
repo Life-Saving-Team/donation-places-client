@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ViewPlacesComponent } from './view-places/view-places.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PlacesComponent } from './places.component';
+import { EditPlaceComponent } from './edit-place/edit-place.component';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { PlacesComponent } from './places.component';
         ViewPlacesComponent,
         PlaceFormComponent,
         AddPlaceComponent,
+        EditPlaceComponent
     ],
 })
 export class PlacesModule {

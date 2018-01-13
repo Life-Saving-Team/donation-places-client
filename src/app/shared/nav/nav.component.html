@@ -13,7 +13,7 @@
             <p class="navbar-text">Smaller text</p>
         </div>
         <ul class="nav navbar-nav">
-            <li routerLinkActive="active" routerLink='/places'><a href="javascript:void(0);">Places</a></li>
+            <li routerLinkActive="active" (click)="onPlacesClick()"><a href="javascript:void(0);">Places</a></li>
             <li (click)="logout()"><a href="javascript:void(0);">Logout</a></li>
         </ul>
     </div>
