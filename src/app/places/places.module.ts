@@ -1,3 +1,5 @@
+import { AddPlaceComponent } from '../places/add-place/add-place.component';
+import { PlaceFormComponent } from '../places/place-form/place-form.component';
 import { NgModule } from '@angular/core';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
@@ -5,6 +7,7 @@ import { PlacesRoutingModule } from './plcaes-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ViewPlacesComponent } from './view-places/view-places.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { PlacesComponent } from './places.component';
 
 @NgModule({
     imports: [
@@ -14,7 +17,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
         TypeaheadModule.forRoot()
     ],
     declarations: [
-        ViewPlacesComponent
+        PlacesComponent,
+        ViewPlacesComponent,
+        PlaceFormComponent,
+        AddPlaceComponent,
     ],
 })
 export class PlacesModule {
