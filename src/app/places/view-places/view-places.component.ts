@@ -30,21 +30,18 @@ export class ViewPlacesComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        console.log('o ini');
-        
         this.fetchPlaces({})
         this.searchSubscription =
-            this.keyUp$.debounceTime(400).distinctUntilChanged().subscribe(() => {
-                if (this.currentPage === 1) this.fetchPlaces({})
-                else this.currentPage = 1
-            })
+            this.keyUp$.debounceTime(400).distinctUntilChanged().subscribe(() => this.fetchConsideringPaging())
     }
 
 
+    private fetchConsideringPaging() {
+        if (this.currentPage === 1) this.fetchPlaces({})
+        else this.currentPage = 1
+    }
 
     public fetchPlaces({ page = 1 }) {
-        console.log(this.searchFilter);
-        
         const initialSub = this.dataService.getPlaces({
             categoryFilter: this.categoryFilter,
             cityFilter: this.cityFilter,

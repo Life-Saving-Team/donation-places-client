@@ -1,6 +1,7 @@
+<div class="container">
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Users
+        <h3 class="panel-title">Donation Places
 
         </h3>
     </div>
@@ -12,12 +13,12 @@
 
         <div class="form-group col-md-4">
             <pre class="card card-block card-header">Category: {{selected | json}}</pre>
-            <input [(ngModel)]="categoryFilter" [typeahead]="categories" class="form-control">
+            <input [(ngModel)]="categoryFilter" [typeahead]="categories" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
         <div class="form-group col-md-4">
             <pre class="card card-block card-header">City: {{selected | json}}</pre>
-            <input [(ngModel)]="cityFilter" [typeahead]="cities" class="form-control">
+            <input [(ngModel)]="cityFilter" [typeahead]="cities" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
 
@@ -30,9 +31,8 @@
                     <th>Address</th>
                     <th>Category</th>
                     <th>City</th>
-                    <th>Longitude</th>
-                    <th>Latitude</th>
-                    <th>isPrivate</th>
+                    <th>Location Coordinates</th>
+                    <th>Private</th>
                     <th class="text-center">Update Place Info</th>
                     <th class="text-center">Delete</th>
                 </tr>
@@ -43,9 +43,10 @@
                     <td>{{item.address}}</td>
                     <td>{{item.category}}</td>
                     <td>{{item.city}}</td>
-                    <td>{{item.location.longitude}}</td>
-                    <td>{{item.location.latitude}}</td>
-                    <td class="text-center" (click)="onUpdateClick(item)">
+                    <td>{{item.location.coordinates}}</td>
+                    <td *ngIf="item.isPrivate"><i class="fa fa-check" aria-hidden="true"></i></td>
+                    <td *ngIf="!item.isPrivate">    </td>
+                     <td class="text-center" (click)="onUpdateClick(item)">
                         <a href="javascript:void(0);">
                             <i class="fa fa-edit  text-default"> </i>
                         </a>
@@ -55,7 +56,7 @@
                             <i class="fa fa-trash text-danger"> </i>
                         </a>
                     </td>
-                </tr>
+                </tr> 
             </tbody>
 
         </table>
@@ -64,4 +65,6 @@
 
 <div class="col-md-12">
     <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="fetchPlaces($event)"></pagination>
+</div>
+
 </div>

@@ -23,9 +23,11 @@ export class DataService {
     }
 
 
-    getPlaces({ skip = 0, searchFilter, categoryFilter, cityFilter }) {
+    getPlaces({ skip , searchFilter, categoryFilter, cityFilter }) {
         let params = new HttpParams()
         params = params.append('skip', skip.toString())
+        if (skip) params = params.append('skip', skip);
+        if (categoryFilter) params = params.append('categoryFilter', categoryFilter);
         if (searchFilter) params = params.append('searchFilter', searchFilter);
         if (cityFilter) params = params.append('cityFilter', cityFilter)
         return this.http.get(this.placesEndPoint, { params }).catch(err => this.handleError(err));
