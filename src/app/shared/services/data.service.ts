@@ -22,10 +22,20 @@ export class DataService {
     }
 
 
-    getNearbyPlaces(longitude?, latitude?) {
-        return this.http.get(`${this.placesEndPoint}?latitude=${latitude}&longitude=${longitude}`)
+    getPlaces({ skip = 0, searchFilter = '', categoryFilter = '', cityFilter= '' }) {
+        return this.http.get(`${this.placesEndPoint}?skip=${skip}&searchFilter=
+            ${searchFilter}&categoryFilter=${categoryFilter}&cityFilter=${cityFilter}`, this.requestOptions)
             .map(res => {
-                return 'OK'
+                return res.json()
+            })
+            .catch(err => this.handleError(err));
+    }
+
+
+    getNearbyPlaces(longitude?, latitude?) {
+        return this.http.get(`${this.placesEndPoint}/nearby?latitude=${latitude}&longitude=${longitude}`)
+            .map(res => {
+                return res.json()
             })
             .catch(this.handleError);
     }

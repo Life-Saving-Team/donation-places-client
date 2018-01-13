@@ -24,8 +24,16 @@ export class MapCoreEventsHandler {
         view.on('mouse-wheel', (x) => obs.next(1))
         view.on('hold', (x) => obs.next(1))
 
-        obs.throttleTime(500).flatMap(() => this.dataService.getNearbyPlaces(view.center.longitude, view.center.latitude)).subscribe(
-            data => this.graphicsService.setGraphicsFromData(data)
+        obs.throttleTime(500).flatMap(() => {
+            console.log('working');
+            
+            return this.dataService.getNearbyPlaces(view.center.longitude, view.center.latitude)
+        }).subscribe(
+            data => {
+                console.log('data', data);
+                
+                this.graphicsService.setGraphicsFromData(data)
+            }
         )
 
         this.mapDoubleClickHandler.implement(view, Locator)

@@ -1,4 +1,4 @@
-export const governerates = [
+export const cities = [
     'Alexandria',
     'Aswan',
     'Asyut',

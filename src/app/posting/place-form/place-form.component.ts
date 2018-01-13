@@ -1,9 +1,9 @@
 import { globalValidators } from '../../shared/global-validators';
 import { FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SavedPlaceService } from '../../shared/services/saved-place.service';
 import { categories } from '../../config/categories';
-import { governerates } from '../../config/governerates';
+import { cities } from '../../config/cities';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,8 +15,9 @@ export class PlaceFormComponent implements OnInit {
 
     form: FormGroup
     categories = categories
-    governerates = governerates
+    cities = cities
     placeToEdit
+    @Output() submitted = new EventEmitter
 
     constructor(
         public savedPlaceService: SavedPlaceService,
@@ -34,9 +35,8 @@ export class PlaceFormComponent implements OnInit {
             address: [this.placeToEdit ? this.placeToEdit.address :
                 this.savedPlaceService.placeData ? this.savedPlaceService.placeData.address : '', Validators.required],
             category:
-                [this.placeToEdit ? this.placeToEdit.email : '',
-                Validators.compose([Validators.required, globalValidators.mailFormat])],
-            governerate: [this.placeToEdit ? this.placeToEdit.telephone : '', Validators.required],
+                [this.placeToEdit ? this.placeToEdit.category : '', Validators.required],
+            city: [this.placeToEdit ? this.placeToEdit.telephone : '', Validators.required],
             isPrivate: [this.placeToEdit ? this.placeToEdit.bloodGroup : false, Validators.required],
             longitude:
                 [this.placeToEdit ? this.placeToEdit.longitude :
@@ -53,16 +53,14 @@ export class PlaceFormComponent implements OnInit {
         this.router.navigate(['/'])
     }
 
-    isIncorrectMailFormat(control) {
-        return this.form.get(control).hasError('incorrectMailFormat')
-    }
-    isIncorrectTelephoneFormat(control) {
-        return this.form.get(control).hasError('incorrectTelephoneFormat')
-    }
     isIncorrectLongitudeFormat(control) {
         return this.form.get(control).hasError('incorrectLongitudeFormat')
     }
     isIncorrectLatitudeFormat(control) {
         return this.form.get(control).hasError('incorrectLatitudeFormat')
+    }
+
+    onSubmit(e) {
+        this.submitted.emit(e)
     }
 }

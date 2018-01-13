@@ -16,9 +16,9 @@
     </div>
 
     <div class="form-group">
-        <label for=""> Governerate </label>
-        <select class="form-control bg-white xs-inline loadServices" formControlName="governerate">
-            <option *ngFor="let item of governerates" value="{{item}}">{{item}}</option>
+        <label for=""> City </label>
+        <select class="form-control bg-white xs-inline loadServices" formControlName="city">
+            <option *ngFor="let item of cities" value="{{item}}">{{item}}</option>
         </select>
     </div>
 
@@ -31,18 +31,19 @@
 
     <div class="form-group">
         <label for="">Longitude </label>
-        <input type="text" class="form-control" id="" formControlName="longitude">
+        <input type="text" class="form-control" id="longitude" formControlName="longitude">
         <p [hidden]="!isIncorrectLongitudeFormat('longitude')" class="text-danger"> Please Enter a valid longitude </p>
 
     </div>
     <div class="form-group">
         <label for="">Latitude </label>
-        <input type="text" class="form-control" id="" formControlName="latitude">
+        <input type="text" class="form-control" id="latitude" formControlName="latitude">
         <p [hidden]="!isIncorrectLatitudeFormat('latitude')" class="text-danger"> Please Enter a valid latitude </p>
 
     </div>
 
     <button type="submit" class="btn btn-success" [disabled]="!form.valid"> Submit</button>
+    <button class="btn btn-success" (click)="test()"> Submit</button>
     <div class="btn btn-info" (click)="onChangeLocationRequest()">Get Back to Map</div>
     
 </form>

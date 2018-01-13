@@ -34,15 +34,11 @@ export class GraphicsService {
                     'Name': place.name,
                     'Address': place.address,
                     'Category': place.category,
-                    'Governerate': place.governerate,
+                    'City': place.city,
                     'isPrivate': place.isPrivate,
                 },
                 popupTemplate: {
-                    actions: [{
-                        title: 'Show phone and email',
-                        id: 'show-hidden',
-                    }],
-                    title: '{firstName} {lastName}',
+                    title: '{name}',
                     content: [{
                         type: 'fields',
                         fieldInfos: [{
@@ -52,7 +48,7 @@ export class GraphicsService {
                         }, {
                             fieldName: 'Category'
                         }, {
-                            fieldName: 'Governerate'
+                            fieldName: 'City'
                         }, {
                             fieldName: 'isPrivate'
                         }]

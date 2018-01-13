@@ -1,0 +1,70 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Users
+
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group col-md-4">
+            <input type="text" class="form-control" placeholder="Filter by name" [(ngModel)]="searchFilter" (ngModelChange)="keyUp$.next($event)">
+        </div>
+
+        <div class="form-group col-md-4">
+            <pre class="card card-block card-header">Category: {{selected | json}}</pre>
+            <input [(ngModel)]="categoryFilter" [typeahead]="categories" class="form-control">
+        </div>
+
+        <div class="form-group col-md-4">
+            <pre class="card card-block card-header">City: {{selected | json}}</pre>
+            <input [(ngModel)]="cityFilter" [typeahead]="cities" class="form-control">
+        </div>
+
+
+        <table class="table table-hover">
+
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Category</th>
+                    <th>City</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                    <th>isPrivate</th>
+                    <th class="text-center">Update User Info</th>
+                    <th class="text-center">Activate</th>
+                    <th *ngIf="isAdmin()" class="text-center">Timings</th>
+                    <th class="text-center">Delete</th>
+                    <th *ngIf="isAdmin()" class="text-center">Change Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of places">
+                    <td>{{item.name}}</td>
+                    <td>{{item.address}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.location.longitude}}</td>
+                    <td>{{item.location.latitude}}</td>
+                    <td class="text-center" (click)="onUpdateClick(item)">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-edit  text-default"> </i>
+                        </a>
+                    </td>
+                    <td class="text-center" (click)="onDeleteClick(item)">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-trash text-danger"> </i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="fetchUsers($event)"></pagination>
+</div>
