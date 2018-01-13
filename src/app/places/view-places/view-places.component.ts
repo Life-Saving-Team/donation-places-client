@@ -12,22 +12,14 @@ import { categories } from '../../config/categories';
     selector: 'view-places',
     templateUrl: 'view-places.component.html',
 })
-export class ViewPlacesComponent {
-
-}
-
-
-@Component({
-    templateUrl: 'view-places.component.html',
-})
-export class UsersComponent implements OnInit, OnDestroy {
+export class ViewPlacesComponent implements OnInit, OnDestroy {
     places: Place[] = []
     totalItems: number
-    searchFilter: string
-    categoryFilter: string
+    searchFilter = ''
+    categoryFilter = ''
+    cityFilter = ''
     cities = cities
     categories = categories
-    cityFilter: string
     currentPage: number
     keyUp$ = new Subject<string>()
     searchSubscription: Subscription
@@ -38,23 +30,27 @@ export class UsersComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.fetchUsers({})
+        console.log('o ini');
+        
+        this.fetchPlaces({})
         this.searchSubscription =
             this.keyUp$.debounceTime(400).distinctUntilChanged().subscribe(() => {
-                if (this.currentPage === 1) this.fetchUsers({})
+                if (this.currentPage === 1) this.fetchPlaces({})
                 else this.currentPage = 1
             })
     }
 
 
 
-    public fetchUsers({ page = 1 }) {
+    public fetchPlaces({ page = 1 }) {
+        console.log(this.searchFilter);
+        
         const initialSub = this.dataService.getPlaces({
             categoryFilter: this.categoryFilter,
             cityFilter: this.cityFilter,
             searchFilter: this.searchFilter,
             skip: (page - 1) * 10
-        }).first().subscribe(
+        }).subscribe(
             data => {
                 this.places = data.places
                 this.totalItems = data.count
@@ -66,7 +62,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     onDeleteClick(selectedUser) {
         this.dataService.deletePlace(selectedUser._id).subscribe(
-            data => this.fetchUsers({ page: this.currentPage }),
+            data => this.fetchPlaces({ page: this.currentPage }),
             error => this.sb.emitErrorSnackBar(error)
         )
     }

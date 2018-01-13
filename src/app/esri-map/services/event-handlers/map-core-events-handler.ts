@@ -25,13 +25,9 @@ export class MapCoreEventsHandler {
         view.on('hold', (x) => obs.next(1))
 
         obs.throttleTime(500).flatMap(() => {
-            console.log('working');
-            
             return this.dataService.getNearbyPlaces(view.center.longitude, view.center.latitude)
         }).subscribe(
             data => {
-                console.log('data', data);
-                
                 this.graphicsService.setGraphicsFromData(data)
             }
         )

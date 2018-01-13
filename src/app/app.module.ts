@@ -18,7 +18,6 @@ import { GraphicsService } from './shared/services/graphics.service';
     BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
-    
   ],
   providers: [GraphicsService, DataService, SnackBarService, SavedPlaceService],
   bootstrap: [AppComponent]

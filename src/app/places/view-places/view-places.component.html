@@ -33,11 +33,8 @@
                     <th>Longitude</th>
                     <th>Latitude</th>
                     <th>isPrivate</th>
-                    <th class="text-center">Update User Info</th>
-                    <th class="text-center">Activate</th>
-                    <th *ngIf="isAdmin()" class="text-center">Timings</th>
+                    <th class="text-center">Update Place Info</th>
                     <th class="text-center">Delete</th>
-                    <th *ngIf="isAdmin()" class="text-center">Change Role</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,5 +63,5 @@
 </div>
 
 <div class="col-md-12">
-    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="fetchUsers($event)"></pagination>
+    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="fetchPlaces($event)"></pagination>
 </div>

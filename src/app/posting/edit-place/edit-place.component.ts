@@ -25,6 +25,9 @@ export class EditPlaceComponent {
         this.activatedRoute.params.flatMap(data => this.dataService.getPlaceInfo(data.id))
             .subscribe(data => {
                 this.place = data
+                this.place.location = undefined
+                this.place.longitude = data.location.coordinates[0]
+                this.place.latitude = data.location.coordinates[1]
             }, error => this.sb.emitErrorSnackBar(error))
     }
 
