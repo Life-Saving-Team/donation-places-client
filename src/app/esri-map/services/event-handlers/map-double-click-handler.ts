@@ -28,7 +28,7 @@ export class MapDoubleClickHandler {
             view.popup.on('trigger-action', (e) => {
                 if (e.action.id === 'show-add-modal') {
                     self.saveLocation(longitude, latitude, address);
-                    self.router.navigate(['/posting/add']);
+                    self.router.navigate(['/places/add']);
                 }
             });
 

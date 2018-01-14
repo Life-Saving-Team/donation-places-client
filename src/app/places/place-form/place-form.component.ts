@@ -16,7 +16,7 @@ export class PlaceFormComponent implements OnInit {
     form: FormGroup
     categories = categories
     cities = cities
-    @Input() placeToEdit
+    @Input() initialFormValue
     @Output() submitted = new EventEmitter
 
     constructor(
@@ -31,27 +31,16 @@ export class PlaceFormComponent implements OnInit {
 
     private buildForm() {
         this.form = this.fb.group({
-            name: [this.placeToEdit ? this.placeToEdit.name : '', Validators.required],
-            address: [this.placeToEdit ? this.placeToEdit.address :
-                this.savedPlaceService.placeData ? this.savedPlaceService.placeData.address : '', Validators.required],
-            category:
-                [this.placeToEdit ? this.placeToEdit.category : '', Validators.required],
-            city: [this.placeToEdit ? this.placeToEdit.telephone : '', Validators.required],
-            isPrivate: [this.placeToEdit ? this.placeToEdit.bloodGroup : false, Validators.required],
-            longitude:
-                [this.placeToEdit ? this.placeToEdit.longitude :
-                    this.savedPlaceService.placeData ? this.savedPlaceService.placeData.longitude : '',
-                Validators.compose([Validators.required, globalValidators.longitudeFormat])],
-            latitude:
-                [this.placeToEdit ? this.placeToEdit.latitude :
-                    this.savedPlaceService.placeData ? this.savedPlaceService.placeData.longitude : '',
-                Validators.compose([Validators.required, globalValidators.latitudeFormat])],
+            name: [this.initialFormValue.name, Validators.required],
+            address: [this.initialFormValue.address, Validators.required],
+            category: [this.initialFormValue.category, Validators.required],
+            city: [this.initialFormValue.city, Validators.required],
+            isPrivate: [this.initialFormValue.isPrivate, Validators.required],
+            longitude: [this.initialFormValue.longitude, Validators.compose([Validators.required, globalValidators.longitudeFormat])],
+            latitude: [this.initialFormValue.latitude, Validators.compose([Validators.required, globalValidators.latitudeFormat])],
         })
     }
 
-    onChangeLocationRequest() {
-        this.router.navigate(['/'])
-    }
 
     isIncorrectLongitudeFormat(control) {
         return this.form.get(control).hasError('incorrectLongitudeFormat')

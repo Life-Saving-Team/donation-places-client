@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { SavedPlaceService } from '../../shared/services/saved-place.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { SnackBarService } from '../../shared/services/snackbar.service';
 
@@ -10,24 +10,42 @@ import { SnackBarService } from '../../shared/services/snackbar.service';
 })
 
 
-export class AddPlaceComponent {
+export class AddPlaceComponent implements OnInit {
+
+    initialFormValue
+
     constructor(
         private dataService: DataService,
-        private savedPlace: SavedPlaceService,
+        private savedPlaceService: SavedPlaceService,
         private router: Router,
         private sb: SnackBarService
-    ) {}
+    ) { }
+
+    ngOnInit() {
+        this.initialFormValue = {
+            name: '',
+            address: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.latitude : '',
+            latitude: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.latitude : '',
+            longitude: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.longitude : '',
+            isPrivate: false,
+            category: '',
+            city: ''
+        }
+    }
 
     onSubmit(formData) {
         return this.dataService.addPlace(formData).subscribe(
             data => {
-                this.savedPlace.placeId = data._id
+                this.savedPlaceService.placeId = data._id
                 this.router.navigate(['/success'])
             },
             error => this.sb.emitErrorSnackBar(error)
         )
     }
 
+    onChangeLocationRequest() {
+        this.router.navigate(['/'])
+    }
 
 
 

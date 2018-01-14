@@ -11,7 +11,7 @@ import { DataService } from '../../shared/services/data.service';
 
 export class EditPlaceComponent {
 
-    place
+    placeToEdit
     constructor(private activatedRoute: ActivatedRoute,
         private dataService: DataService,
         private router: Router,
@@ -24,15 +24,17 @@ export class EditPlaceComponent {
     grabIdAndGetInfo() {
         this.activatedRoute.params.flatMap(data => this.dataService.getPlaceInfo(data.id))
             .subscribe(data => {
-                this.place = data
-                this.place.location = undefined
-                this.place.longitude = data.location.coordinates[0]
-                this.place.latitude = data.location.coordinates[1]
+                console.log(data);
+                this.placeToEdit = data
+                // this.place.location = undefined
+                this.placeToEdit.longitude = data.location.coordinates[0]
+                this.placeToEdit.latitude = data.location.coordinates[1]
+                
             }, error => this.sb.emitErrorSnackBar(error))
     }
 
     public onSubmit(e) {
-        this.dataService.updatePlace(this.savedPlaceService.placeId, e).subscribe(
+        this.dataService.updatePlace(this.placeToEdit._id, e).subscribe(
             success => {
                 this.router.navigate(['/success'])
             },

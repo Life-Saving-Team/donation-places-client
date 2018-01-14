@@ -66,7 +66,7 @@ export class ViewPlacesComponent implements OnInit, OnDestroy {
 
 
     onUpdateClick(item) {
-        this.router.navigate(['/posting', item._id])
+        this.router.navigate(['/places', item._id])
     }
 
 

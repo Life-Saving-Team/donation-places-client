@@ -17,4 +17,8 @@ export class NavComponent {
     onPlacesClick() {
         this.router.navigate(['/places'])
     }
+
+    onMapClick() {
+        this.router.navigate(['/map'])
+    }
 }

@@ -3,8 +3,7 @@
     <div class="row">
         <div class="col-md-6">
 
-            <place-form [placeToEdit]="place" (submitted)="onSubmit($event)"></place-form>
-            <div class="btn btn-danger" *ngIf="savedPlace.placeId" (click)="onRemove()">Remove My Posting</div>
+            <place-form *ngIf="placeToEdit" [initialFormValue]="placeToEdit" (submitted)="onSubmit($event)"></place-form>
 
             <hr />
 
