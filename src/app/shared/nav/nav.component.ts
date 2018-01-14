@@ -21,4 +21,8 @@ export class NavComponent {
     onMapClick() {
         this.router.navigate(['/map'])
     }
+
+    onAddPlaceClick() {
+        this.router.navigate(['/places/add'])
+    }
 }

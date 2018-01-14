@@ -20,7 +20,7 @@ export class MapDoubleClickHandler {
             locatorTask.locationToAddress(event.mapPoint)
                 .then(response => {
                     address = response.address
-                    self.showPopup(view, event.mapPoint, response.address)
+                    self.graphicsService.showAddingPopup(view, event.mapPoint, response.address)
                 })
                 // .otherwise(err => self.showPopup(view, event.mapPoint, address));
 
@@ -36,14 +36,5 @@ export class MapDoubleClickHandler {
 
 
     }
-
-    private showPopup(view, mapPoint, address) {
-        this.graphicsService.showAddingPopup(view, mapPoint, address);
-    }
-
-
-
-
-
 
 }

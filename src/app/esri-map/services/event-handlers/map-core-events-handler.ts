@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
 import { debounce } from '../utility';
-import { addShowHiddenItemsHandler } from './map-show-hidden-handler';
 import { MapDoubleClickHandler } from './map-double-click-handler';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/mergeMap';
@@ -33,7 +32,6 @@ export class MapCoreEventsHandler {
         )
 
         this.mapDoubleClickHandler.implement(view, Locator)
-        addShowHiddenItemsHandler(view)
         view.then((x) => obs.next(1));
     }
 
