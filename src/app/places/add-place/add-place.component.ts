@@ -24,7 +24,7 @@ export class AddPlaceComponent implements OnInit {
     ngOnInit() {
         this.initialFormValue = {
             name: '',
-            address: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.latitude : '',
+            address: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.address : '',
             latitude: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.latitude : '',
             longitude: this.savedPlaceService.placeData ? this.savedPlaceService.placeData.longitude : '',
             isPrivate: false,

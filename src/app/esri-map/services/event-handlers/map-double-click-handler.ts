@@ -27,7 +27,7 @@ export class MapDoubleClickHandler {
 
             view.popup.on('trigger-action', (e) => {
                 if (e.action.id === 'show-add-modal') {
-                    self.saveLocation(longitude, latitude, address);
+                    self.savedPlaceService.saveLocation(longitude, latitude, address);
                     self.router.navigate(['/places/add']);
                 }
             });
@@ -41,9 +41,6 @@ export class MapDoubleClickHandler {
         this.graphicsService.showAddingPopup(view, mapPoint, address);
     }
 
-    private saveLocation(longitude, latitude, address) {
-        this.savedPlaceService.saveLocation(longitude, latitude, address);
-    }
 
 
 
