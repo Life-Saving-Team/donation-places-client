@@ -12,12 +12,12 @@
         </div>
 
         <div class="form-group col-md-4">
-            <pre class="card card-block card-header">Category: {{selected | json}}</pre>
+            <pre class="card card-block card-header">Category: {{categoryFilter}}</pre>
             <input [(ngModel)]="categoryFilter" [typeahead]="categories" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
         <div class="form-group col-md-4">
-            <pre class="card card-block card-header">City: {{selected | json}}</pre>
+            <pre class="card card-block card-header">City: {{cityFilter}}</pre>
             <input [(ngModel)]="cityFilter" [typeahead]="cities" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 

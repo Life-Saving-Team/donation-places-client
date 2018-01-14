@@ -36,7 +36,7 @@ export class ViewPlacesComponent implements OnInit, OnDestroy {
     }
 
 
-    private fetchConsideringPaging() {
+    public fetchConsideringPaging() {
         if (this.currentPage === 1) this.fetchPlaces({})
         else this.currentPage = 1
     }

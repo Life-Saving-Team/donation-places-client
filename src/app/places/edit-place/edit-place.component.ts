@@ -42,7 +42,7 @@ export class EditPlaceComponent {
             success => {
                 this.router.navigate(['/success'])
             },
-            error => this.sb.emitErrorSnackBar(error))
+            error => this.sb.emitErrorSnackBar(error)
         )
     }
 

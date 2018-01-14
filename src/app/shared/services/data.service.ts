@@ -1,10 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SnackBarService } from './snackbar.service';
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -12,10 +10,6 @@ import 'rxjs/add/observable/throw';
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class DataService {
-    private nearbyPlacesStore: any[]
-
-    // private requestHeaders = new Headers({ 'Content-Type': 'application/json' });
-    // private requestOptions = new RequestOptions({ headers: this.requestHeaders });
     private placesEndPoint
     constructor(private http: HttpClient) {
         if (environment.production) this.placesEndPoint = '/donation-places'
