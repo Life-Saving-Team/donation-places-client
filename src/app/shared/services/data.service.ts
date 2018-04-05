@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SnackBarService } from './snackbar.service';
@@ -8,14 +8,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class DataService {
-    private placesEndPoint
-    constructor(private http: HttpClient) {
-        if (environment.production) this.placesEndPoint = '/donation-places'
-        else this.placesEndPoint = 'http://localhost:3000/donation-places'
-    }
 
+    constructor(private http: HttpClient) {  }
 
     getPlaces({ skip , searchFilter, categoryFilter, cityFilter }) {
         let params = new HttpParams()
@@ -24,32 +21,32 @@ export class DataService {
         if (categoryFilter) params = params.append('categoryFilter', categoryFilter);
         if (searchFilter) params = params.append('searchFilter', searchFilter);
         if (cityFilter) params = params.append('cityFilter', cityFilter)
-        return this.http.get(this.placesEndPoint, { params }).catch(err => this.handleError(err));
+        return this.http.get(environment.apiUrl, { params }).catch(err => this.handleError(err));
     }
 
 
     getNearbyPlaces(longitude?, latitude?) {
-        return this.http.get(`${this.placesEndPoint}/nearby?latitude=${latitude}&longitude=${longitude}`).catch(this.handleError);
+        return this.http.get(`${environment.apiUrl}/nearby?latitude=${latitude}&longitude=${longitude}`).catch(this.handleError);
     }
 
 
     deletePlace(id) {
-        return this.http.delete(`${this.placesEndPoint}/${id}`).catch(this.handleError);
+        return this.http.delete(`${environment.apiUrl}/${id}`).catch(this.handleError);
     }
 
 
     updatePlace(id, data) {
-        return this.http.put(`${this.placesEndPoint}/${id}`, data).catch(this.handleError);
+        return this.http.put(`${environment.apiUrl}/${id}`, data).catch(this.handleError);
     }
 
 
 
     addPlace(item) {
-        return this.http.post(`${this.placesEndPoint}`, item).catch(this.handleError);
+        return this.http.post(`${environment.apiUrl}`, item).catch(this.handleError);
     }
 
     getPlaceInfo(id) {
-        return this.http.get(`${this.placesEndPoint}/${id}`).catch(this.handleError);
+        return this.http.get(`${environment.apiUrl}/${id}`).catch(this.handleError);
     }
 
     private handleError(error: Response | any) {
