@@ -12,13 +12,11 @@
         </div>
 
         <div class="form-group col-md-4">
-            <pre class="card card-block card-header">Category: {{categoryFilter}}</pre>
-            <input [(ngModel)]="categoryFilter" (ngModelChange)="fetchAllIfEmpty($event)" [typeahead]="categories" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
+            <input [(ngModel)]="categoryFilter" placeholder="Filter by category" (ngModelChange)="fetchAllIfEmpty($event)" [typeahead]="categories" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
         <div class="form-group col-md-4">
-            <pre class="card card-block card-header">City: {{cityFilter}}</pre>
-            <input [(ngModel)]="cityFilter" (ngModelChange)="fetchAllIfEmpty($event)" [typeahead]="cities" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
+            <input [(ngModel)]="cityFilter" placeholder="Filter by city" (ngModelChange)="fetchAllIfEmpty($event)" [typeahead]="cities" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
 
