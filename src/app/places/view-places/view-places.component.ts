@@ -20,7 +20,7 @@ export class ViewPlacesComponent implements OnInit, OnDestroy {
     cityFilter = ''
     cities = cities
     categories = categories
-    currentPage: number
+    currentPage = 1
     keyUp$ = new Subject<string>()
     searchSubscription: Subscription
     constructor(
@@ -30,18 +30,23 @@ export class ViewPlacesComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.fetchPlaces({})
+        this.fetchPlaces()
         this.searchSubscription =
             this.keyUp$.debounceTime(400).distinctUntilChanged().subscribe(() => this.fetchConsideringPaging())
     }
 
+    fetchAllIfEmpty(value) {
+        if (value === '') {
+            this.fetchConsideringPaging()
+        }
+    }
 
-    public fetchConsideringPaging() {
-        if (this.currentPage === 1) this.fetchPlaces({})
+    fetchConsideringPaging() {
+        if (this.currentPage === 1) this.fetchPlaces()
         else this.currentPage = 1
     }
 
-    public fetchPlaces({ page = 1 }) {
+    fetchPlaces(page = this.currentPage) {
         const initialSub = this.dataService.getPlaces({
             categoryFilter: this.categoryFilter,
             cityFilter: this.cityFilter,
@@ -53,17 +58,20 @@ export class ViewPlacesComponent implements OnInit, OnDestroy {
                 this.totalItems = data.count
             },
             error => this.sb.emitErrorSnackBar(error)
-            )
+        )
     }
 
 
     onDeleteClick(selectedUser) {
         this.dataService.deletePlace(selectedUser._id).subscribe(
-            data => this.fetchPlaces({ page: this.currentPage }),
+            data => this.fetchPlaces(),
             error => this.sb.emitErrorSnackBar(error)
         )
     }
 
+    onPageChange({ page }) {
+        this.fetchPlaces(page)
+    }
 
     onUpdateClick(item) {
         this.router.navigate(['/places', item._id])

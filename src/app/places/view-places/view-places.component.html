@@ -13,12 +13,12 @@
 
         <div class="form-group col-md-4">
             <pre class="card card-block card-header">Category: {{categoryFilter}}</pre>
-            <input [(ngModel)]="categoryFilter" [typeahead]="categories" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
+            <input [(ngModel)]="categoryFilter" (ngModelChange)="fetchAllIfEmpty($event)" [typeahead]="categories" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
         <div class="form-group col-md-4">
             <pre class="card card-block card-header">City: {{cityFilter}}</pre>
-            <input [(ngModel)]="cityFilter" [typeahead]="cities" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
+            <input [(ngModel)]="cityFilter" (ngModelChange)="fetchAllIfEmpty($event)" [typeahead]="cities" class="form-control" (typeaheadOnSelect)="fetchConsideringPaging()">
         </div>
 
 
@@ -56,7 +56,7 @@
                             <i class="fa fa-trash text-danger"> </i>
                         </a>
                     </td>
-                </tr> 
+                </tr>
             </tbody>
 
         </table>
@@ -64,7 +64,7 @@
 </div>
 
 <div class="col-md-12">
-    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="fetchPlaces($event)"></pagination>
+    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="onPageChange($event)"></pagination>
 </div>
 
 </div>
