@@ -10,9 +10,6 @@ export class NavComponent {
     constructor(
         private router: Router
     ) {}
-    logout() {
-        console.log('Fake Logging out');
-    }
 
     onPlacesClick() {
         this.router.navigate(['/places'])
